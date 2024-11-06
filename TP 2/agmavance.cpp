@@ -52,9 +52,11 @@ bool esPuente(vector<int> aDevo,const vector<vector<pair<int,pair<int,int>>>>& a
         }
     return false;
 }*/
+set<pair<int,int>> puentes;
 
-void esPuente(int v, int u,vector<string>& res,int pos ){
-    resultados[pos] = "any";
+void esPuente(int v, int u){
+    puentes.insert({v,u});
+    puentes.insert({u,v});
 }
 
 vector<bool> visitado;
@@ -62,7 +64,7 @@ vector<int> tin, low;
 int timer;
 vector<vector<int>> adyacencias;
 
-void dfs(int v, int p = -1,vector<vector<int>> adyacencias,vector<string> resultados ,int pos) {
+void dfs(int v,int p = -1) {
     visitado[v] = true;
     tin[v] = low[v] = timer++;
     bool parent_skipped = false;
@@ -74,20 +76,20 @@ void dfs(int v, int p = -1,vector<vector<int>> adyacencias,vector<string> result
         if (visitado[u]) {
             low[v] = min(low[v], tin[u]);
         } else {
-            dfs(u, v);
+            dfs(u,v);
             low[v] = min(low[v], low[u]);
             if (low[u] > tin[v])
-                esPuente(v, u,resultados,pos);
+                esPuente(v,u);
         }
     }
 }
 
 void find_bridges() {
     timer = 0;
-    visitado.assign(n, false);
-    tin.assign(n, -1);
-    low.assign(n, -1);
-    for (int i = 0; i < n; ++i) {
+    visitado.assign(n+1, false);
+    tin.assign(n+1, -1);
+    low.assign(n+1, -1);
+    for (int i = 0; i <= n; ++i) {
         if (!visitado[i])
             dfs(i);
     }
@@ -161,8 +163,10 @@ vector<string> kruskal(vector<tuple<int,int,int,int>>& grafoOriginal){
             int repB = find_Set(b,representantes) ;
             if(!(visitado[repA]) || !(visitado[repB]) ){   
               //  bool es = esPuente(visitados,ady,h,a,b);
-                    dfs(repA,repB,adyacencias,resultados,c);
-               
+                    dfs(repA,repB);
+            }
+            if(puentes.count({repA,repB}) || puentes.count({repB,repA}) > 0){
+                resultados[c] = "any";
             }
         }
         /*for(int h = 0; h < avanzo;h++){
@@ -188,6 +192,7 @@ vector<string> kruskal(vector<tuple<int,int,int,int>>& grafoOriginal){
         }
         adyacencias.clear();
         visitado.clear();
+        puentes.clear();
     } 
     return resultados;
 }
