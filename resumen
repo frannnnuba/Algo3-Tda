@@ -22,3 +22,30 @@ DFS(deep first search): recorre primero en profundidad y luego mira las demas op
 La complejidad de ambos es de O(N+M) pues recorre todos los arboles y todas las aristas (suponiendolo conexo). Para hacerlo se suele tener un vector de visitados.
 Bipartito: un grafo es bipartito si sus vertices se pueden separar en dos conj. tal que entre ellos no hay aristas pero si con los del otro conj.
 Comp conexa: son subgrafos conexos, un grafo es una comp conexa, un vertice solo es una comp. conexa. Una arista es un puente si al eliminarla se aumenta la cant de comp cpnexas.
+Recorrido: secuencia de vertices conectados
+Camino: recorrido que no pasa dos veces por el mismo vertice 
+Circuito: recorrido que empieza y termina en el mismo nodo
+Camino/circuito simple: empieza y termina en el mismo nodo pero sin recorrer dos veces el mismo nodo (3 nodos min)
+Forward Edges: arcos que van hacia sus descendientes 
+Backward edges: arcos que van hacia sus ancestros
+Tree-edge: son las que son estrictamente necesarias para construir el arbol.
+ARBOL GENERADOR: es un subgrafo de G; si un grafo es conexo tiene por lo menos un arbol generador.Sea T = (V,Xt) un ag de G=(V,X) y e (pertenece) a X \ Xt, T'= T+e -f
+con f una arista del unico circuito de T+e, T' es un ag de G.
+Long de un arbol: cada arista tiene un peso/valor, no es la cant de aristas.
+AGM: teniendo longitudes/peso las aristas del grafo G, un AGM de G es el arbol con menor longitud/peso de todos los agm de G.
+Algoritmo de Prim: arranca de algun nodo arbitrario y desde el visita el nodo adyacente eligiendo de todas las aristas disponibles la de menor peso siempre que el nodo
+no haya sido visitado antes. Se repite hasta terminar, si no es un grafo conexo devolvera el arbol generador de esta comp conexa. Es un algo greedy
+dependiendo su implementacion es su complejidad: estandar O(N^2), heap binario O((m+n)lg n),heap fibO (m+nlgn) 
+Algoritmo de Kruskal: es un algo greedy, genera un agm a raiz de crear subgrafos del agm. En cada paso elige la arista de menor peso que no genere ciclos con las aristas que ya tengo
+tiene complejidad de O(m*n)
+Camino MaxiMin: para W,V (pert) a V(G), y P un camino de G de V a W, P es maxiMin si su arista de long/peso mas chico es mayor a las aristas mas chicas de todo otro camino 
+de G que una V a W y no sea P.
+Camino MiniMax: su arista mas grande es la mas chica entre todas las aristas mas grandes de todos los caminos entre V y W.
+Disjoint Set: es una estruct. de datos con las operaciones
+FindSet(U): te dice a que comp conexa pertence u
+Union(U,V): une las componentes conexas a las que pertenecen U y V
+Las comp conexas se representan como arboles, la raiz es el representante. Find tiene comple O(N) 
+Union by rank: los rank indican la cant de aristas del subarbol mas grande de una comp conexa. Cuando arrancan estan en rank 0, al juntar dos rank iguales el rep queda igual 
+y aumenta su rank en 1. Si uno es menor que el otro simplemente cambia de rep y no cambia el rank. Find es O(lg(N)) y union O(1)
+Path compression: empezando desde un nodo X ir hasta el rep e ir cambiando los punteros de los nodos al representante. Find queda O(n) sin optimizaciones,con rank es O(lgn) 
+y en la practica termina quedando O(1) Find.
