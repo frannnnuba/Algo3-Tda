@@ -1,0 +1,24 @@
+Backtracking: es una cagada, te hace hacer las 90 mil combinaciones distintas. Plantear los distintos casos (decisiones) en los que se va de los "margenes" van los - inf,
+muchas complejidades son dadas por 2^n, hacer podas si se puede aunque no suele mejorar la comple asi que ver si vale la pena.
+Programacion Dinamica: se usa cuando hay superposicion de problemas, hay que tener una estructura de memorizacion (un vector o matriz de dos o mas indices). Lo mejor para no
+tener sobrecarga innecesaria es guardar indices en la estr. en vez de los elementos mismos.
+Divide & Conquer: un problema grande se subdivide en el mismo problema mas chico.
+1) Ver si hacer sorting ayuda a resolver el problema. Esto de entrada te da comple O(nlg(n))
+2)Complejidad con el teorema maestro: T(N) = aT(N/C) + F(N) donde:
+a: la cantidad de subproblemas a solucionar
+N/C : tamaño en que se subdivide el problema
+F(N): complejidad de efectivamente resolver el subproblema. Puede haber 3 casos: a) F(N) = O(n^log (base c) a - e ) e > 0 (e es epsilon) T(n) = theta(n ^ log (base c) a ) 
+                                                                                 b) F(N)= theta(n ^log(base c) a) T(N)= theta(n^(log(base c)a) log(n))
+++++++++++++++++++++++GRAFOS+++++++++++++++++++++++++++++++++++++
+Hay 3 formas de representarlos: listas de adyacencia, lista de aristas, matriz de adyacencia.
+Demos sobre grafos: se hacen sobre aristas o sobre vertices. Si vamos a usar induccion:
+caso base: suele ser el pertinente. Si estoy haciendo sobre vertices entonces es un solo vertice o una sola arista etc.
+Paso inductivo: es un poco distinto a la induccion normal que suponemos vale n qvqv n+1, mas bien se que vale P(n) qvq si le saco una arista/vertice sigue valiendo, luego si
+le vuelvo a sumar otra arista/vertice sigue valiendo.
+Arboles: si tengo n vertices entonces tiene n-1 aristas. Es aciclico, se lo representa con listas de adyacencia donde la raiz solo se tiene a si misma y los hijos tienen al padre.
+BFS(breadth first search): empieza en un nodo que se le psaa y mira sus adyacencias; luego mira las adyacencias de sus vecinos y asi sigue. EL bfs nos devuelve un arbol v-geodesico
+osea la distancia entre v y todo otro  vertice es igual a la dist. en el grafo.
+DFS(deep first search): recorre primero en profundidad y luego mira las demas opciones.
+La complejidad de ambos es de O(N+M) pues recorre todos los arboles y todas las aristas (suponiendolo conexo). Para hacerlo se suele tener un vector de visitados.
+Bipartito: un grafo es bipartito si sus vertices se pueden separar en dos conj. tal que entre ellos no hay aristas pero si con los del otro conj.
+Comp conexa: son subgrafos conexos, un grafo es una comp conexa, un vertice solo es una comp. conexa. Una arista es un puente si al eliminarla se aumenta la cant de comp cpnexas.
